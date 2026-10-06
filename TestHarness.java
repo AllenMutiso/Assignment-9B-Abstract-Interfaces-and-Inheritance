@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Collections;
 //
 public class TestHarness {
     
@@ -71,17 +72,22 @@ public class TestHarness {
         /*
          * Test Two : check the Observations "iterator" method works.
          * Tried to use this but didn't compile:
-         *      for(Registration reg : observations) {
-         *          System.out.println(reg);
-         *      }
+         *      
          * A puzzle.
          */
         System.out.println("Testing to see if we can iterate through all the observations.");
         System.out.println("The result is:");
+        for(Registration reg : observations) {
+            System.out.println(reg);
+        }
+       
+        /* 
         Iterator<Registration> iterator = observations.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
+        */
+        
         System.out.println("(Compare with the file "+DATA_FILE+" to verify correct).");
         
         /*
@@ -99,17 +105,15 @@ public class TestHarness {
         testReg = new Registration(SECOND_OBSERVED_REG);
         System.out.println("The result is "+observations.numberOfObservations(testReg)+" (should be 3).");
         
-        /*
-         * Test Five : check the Observations "getVehicles" method works.
-         */
-        System.out.println("Testing to see the registrations of all the vehicles that have been observed.");
-        List<Registration> result = observations.getVehicles();
-        // Would like to print them in order so could easily check result, not done
-        // this yet.
-        System.out.println("The result is "+result);
-        System.out.println("(It should be \""+VEHICLES_USED+"\".)");
-        
-         
+        /* 
+        * Test Five: check the Observations "getVehicles" method works. 
+        */ 
+        System.out.println("Testing to see the registrations of all the vehicles that have been observed."); 
+        List<Registration> result = observations.getVehicles(); 
+        // Print them in order so can easily check result. 
+        Collections.sort(result);      
+        System.out.println("The result is "+result); 
+        System.out.println("(should be "+VEHICLES_USED+")");  
     }
     
     

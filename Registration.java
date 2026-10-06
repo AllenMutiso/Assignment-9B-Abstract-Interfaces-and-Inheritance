@@ -1,3 +1,4 @@
+import java.lang.Comparable;
 /**
  * An object of the Registration class represents a South African vehicle registration. 
  *  
@@ -5,7 +6,7 @@
  * @version 14/7/15
  */
 
-public class Registration{
+public class Registration implements Comparable<Registration>{
 
     private final Province province;
     private final String identifier;
@@ -34,6 +35,23 @@ public class Registration{
         catch (IllegalArgumentException illExcep) {
             return false;   
         }
-    }        
+    } 
+    
+    public String toString () {
+        return String.format("%s", identifier);
+    }
+    
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if(other == null) return false;
+        if(!(other instanceof Registration)) return false;
 
+        Registration otherRegistration = (Registration) other;
+        return otherRegistration.getIdentifier().equals(this.getIdentifier());
+    }
+
+    public int compareTo(Registration otherRegistration) {
+        return this.getIdentifier().compareTo(otherRegistration.getIdentifier());
+    }
+    
 }

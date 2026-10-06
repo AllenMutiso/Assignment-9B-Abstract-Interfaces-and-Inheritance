@@ -18,7 +18,7 @@ import java.util.List;
  * @author Alan Berman [Adapted from Stephan Jamieson]
  * @version 14/7/15
  */
-public class Observations {
+public class Observations implements Iterable<Registration>{
 
     private List<Registration> observations;
     
@@ -64,7 +64,7 @@ public class Observations {
     public int numberOfObservations(Registration reg) {
         int count = 0;
         for(Registration observed : observations) {
-            if (observed==reg) {
+            if (observed.equals(reg)) {
                 count++;
             }
         }
