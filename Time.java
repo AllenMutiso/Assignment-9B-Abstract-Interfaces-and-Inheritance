@@ -7,62 +7,62 @@
 */
 
 public class Time implements Comparable<Time>{
-    private int hour;
-    private int minute;
+    private String hour;
+    private String minute;
+    private String second;
 
-    public Time(int hour, int minute) {
-        if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
-            throw new IllegalArgumentException("Invalid minute and hour arguments");
-        }
-        this.hour = hour;
-        this.minute = minute;
+    public Time(String time) {
+        String[] timeParts = time.split(":");
+        this.hour = timeParts[0];
+        this.minute = timeParts[1];
+        this.second = timeParts[2];
     }
 
     public Time () {
-        this.hour = 0;
-        this.minute = 0;
+        this.hour = "0";
+        this.minute = "0";
+        this.second = "0";
     }
 
     public Time (Time other) {
         this.hour = other.hour;
         this.minute = other.minute;
+        this.second = other.second;
     }
 
-    public int getMinute () {return minute;}
-    public int getHour () {return hour;}
+    public String getMinute () {return minute;}
+    public String getHour () {return hour;}
+    public String getSecond () {return second;}
 
-    public void setMinute (int newMinute) {
-        if (0 > newMinute || 59 < newMinute) {
+    public void setMinute (String newMinute) {
+        int intMinute = Integer.parseInt(newMinute);
+        if (0 > intMinute || 59 < intMinute) {
             throw new IllegalArgumentException("Argument should be between 0 and 59.");
         }
         this.minute = newMinute;
     }
 
-    public void setHour (int newHour) {
-        if (0 > newHour || 23 < newHour) {
+    public void setHour (String newHour) {
+        int intHour = Integer.parseInt(newHour);
+        if (0 > intHour || 23 < intHour) {
             throw new IllegalArgumentException("Argument should be between 0 and 23.");
         }
         this.hour = newHour;
     }
 
     public int compareTo(Time other) {
-        // this precedes other 
-        if (this.getHour() < other.getHour() ||(this.getHour() == other.getHour() && this.getMinute() < other.getMinute())) {
-            return -1;
-        } 
-        // this follows other
-        else if (this.getHour() > other.getHour() || (this.getHour() == other.getHour() && this.getMinute() > other.getMinute())) {
-            return 1;
-        } 
-        // this equals other
-        else {
-            return 0;
+        if (this.getHour().compareTo(other.getHour()) != 0) {
+            return this.getHour().compareTo(other.getHour());
+        } else if (this.getMinute().compareTo(other.getMinute()) != 0) {
+            return this.getMinute().compareTo(other.getMinute());
+        } else {
+            return this.getSecond().compareTo(this.getSecond());
         }
     }
 
     @Override 
     public String toString() {
-        return String.format("%02d : %02d", getHour(), getMinute());
+        return String.format("%s:%s:%s", getHour(), getMinute(), getSecond());
     }
 
     @Override
@@ -74,6 +74,6 @@ public class Time implements Comparable<Time>{
             return false;
         }
         Time otherTime = (Time) other;
-        return this.getHour() == otherTime.getHour() && this.getMinute() == otherTime.getMinute();
+        return this.getHour().equals(otherTime.getHour()) && this.getMinute().equals(otherTime.getMinute()) && this.getSecond().equals(otherTime.getSecond());
     }
 }
